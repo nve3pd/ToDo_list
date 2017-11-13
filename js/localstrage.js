@@ -5,11 +5,24 @@ function show() {
   alert("hoge");
 };
 
+function escape_html(string) {
+  return string.replace(/[&'`"<>]/g, function(match) {
+    return {
+      '&': '&amp;',
+      "'": '&#x27;',
+      '`': '&#x60;',
+      '"': '&quot;',
+      '<': '&lt;',
+      '>': '&gt;',
+    }[match]
+  });
+}
+
 function add_localstrage() {
-  var task = document.getElementById("todo").value;
+  var task = escape_html(document.getElementById("todo").value);  // htmlタグが入力されたらescapeさせる
   var date = new Date();
 
-  localStorage.setItem(date, task);  // add localstorage
+  localStorage.setItem(date, task);  // localstorageに追加
 };
 
 function show_tasks() {
