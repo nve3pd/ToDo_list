@@ -1,7 +1,7 @@
 // ページが更新されたら全キーを取得して表示
 // todoが追加されたら localstrage にadd してjqで表示させる
 
-function show() {
+function show() {  //debug
   alert("hoge");
 };
 
@@ -19,10 +19,14 @@ function escape_html(string) {
 }
 
 function add_localstrage() {
-  var task = escape_html(document.getElementById("todo").value);  // htmlタグが入力されたらescapeさせる
+  var task = document.getElementById("todo").value;  
   var date = new Date();
 
-  localStorage.setItem(date, task);  // localstorageに追加
+  if (task.length != 0 && 20 >= task.length) {
+    localStorage.setItem(date, task);  // localstorageに追加
+  } else {
+    alert("文字数は1~20文字にしてください");
+  }
 };
 
 function show_tasks() {
@@ -32,7 +36,7 @@ function show_tasks() {
   }
 
   keys.forEach(function(key) {
-    var task = localStorage.getItem(key)  // キーからvalueを取得
+    var task = escape_html(localStorage.getItem(key))  /// htmlタグがあったらescapeさせる
     $("#todo_list").append(key + "  " + task + " <br>"); // 要素の追加
   });
 };
