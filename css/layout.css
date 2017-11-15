@@ -1,14 +1,16 @@
 body {
-    display: grid;
     font-size: 100%;
     font-family: 'Lato', Arial, sans-serif;
+}
 
-    grid-template-rows: 100px 100px 1fr 100px;
-    grid-template-columns: 100px 1fr 100px;
+.container {
+    min-height: 100vh;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 100px 1fr;
+
     grid-template-areas:
-    "title tasks tasks"
-    "tool-bar tasks tasks"
-    "tool-bar tasks tasks";
+    "header main"
+    "tool_bar main";
 }
 
 header {
@@ -16,19 +18,26 @@ header {
     border: 3px solid #ccc;
     border-radius: 8px;
     margin: 0px 10px;
+
+    grid-area: header;
 }
 
-article {
+main {    
     padding: 10px;
     border: 3px solid #ccc;
     border-radius: 8px;
-    
+    margin: 0px 10px;
+
+    grid-area: main;
+    line-height: 30px;
 }
 
 #tool_bar {
-    margin: 10px 10px;
     background: #f88;
     padding: 10px;
     border: 3px solid #ccc;
     border-radius: 8px;
+    margin: 10px 10px;
+
+    grid-area: tool_bar;
 }
