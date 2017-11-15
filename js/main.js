@@ -12,6 +12,20 @@ function loaded() {
   $("button").click(function() {
     save_task();
   });
+
+  $("input[name='remove']").click(function() {
+    var keys = [];
+    for (var i = 0; i < localStorage.length; ++i) {
+      keys.push(localStorage.key(i));  // 登録されているキーをすべて取得
+    }
+
+    keys.forEach(function(key) {
+      if ($(`[name="${key}"]`).prop("checked")) {
+        console.log(key);
+        localStorage.removeItem(`${key}`);
+      }
+    });
+  });
 }
 
 function escape_html(string) {
@@ -31,7 +45,7 @@ function check_text(text) {
   if (text.length !== 0 && 20 >= text.length) {
     return true;
   } else {
-    alert("文字数は1~20文字にしてください");
+    alert("文字数は1〜20文字にしてください");
     return false;
   }
 }
@@ -50,12 +64,11 @@ function show_tasks() {
   for (var i = 0; i < localStorage.length; ++i) {
     keys.push(localStorage.key(i));  // 登録されているキーをすべて取得
   }
-//<input type="checkbox" name="q1" value="その1">
+
   keys.forEach(function(key) {
     var task = escape_html(localStorage.getItem(key))  /// htmlタグがあったらescapeさせる
-//    $("#todo_list").append(`<input type="checkbox" name="trigger" value="${key}">` + key + "  " + task + "</br>"); // 要素の追加
-      $("#todo_list").append(function() {
-        return `<input type="checkbox" name="trigger" value="${key}">` + key + "  " + task + "</br>"
-      });
+    $("#tasks").append(function() {
+      return `<input type="checkbox" name="${key}"> ` + key + "  " + task + "</br>"
+    });
   });
 };
