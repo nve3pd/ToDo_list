@@ -8,17 +8,32 @@
     <![endif]-->
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript"  src="js/localstrage.js"></script>
+    <script type="text/javascript"  src="js/main.js"></script>
+    <link rel="stylesheet" href="css/layout.css">
   </head>
-  <body>
-    <h1>ToDoリスト</h1> 
-    <form id="input" method="post">
-      <input type="text" id="todo">
-      <input type="submit" value="submit" onclick="add_localstrage()">
-    </form>
 
-    <div id="todo_list">
-      <script>show_tasks()</script>
+  <body>
+    <div class="container">
+      <header>
+        <h1>ToDoリスト</h1> 
+      </header>
+
+      <div id="tool_bar">
+        <form id="input" method="post">
+          <input type="text" id="todo" size="30" maxlength="25">
+          <button>submit</button>
+        </form>
+      </div>
+      
+      <main> 
+        <form name="check_box" method="post">
+          <input type="submit" name="remove" value="削除"><br>
+        </form>
+        <div id="tasks">
+          <!-- ここにtaskが書き込まれる -->
+        </div>
+      </main>
     </div>
+    
   </body>
 </html>
