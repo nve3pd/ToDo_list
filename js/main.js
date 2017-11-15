@@ -1,10 +1,3 @@
-// ページが更新されたら全キーを取得して表示
-// todoが追加されたら localstrage にadd してjqで表示させる
-
-function show() {  //debug
-  alert("hoge");
-};
-
 $(loaded);
 
 function loaded() {
@@ -13,18 +6,15 @@ function loaded() {
     save_task();
   });
 
+  // checkboxにcheckが入っていたらtaskを削除する
   $("input[name='remove']").click(function() {
-    var keys = [];
     for (var i = 0; i < localStorage.length; ++i) {
-      keys.push(localStorage.key(i));  // 登録されているキーをすべて取得
-    }
-
-    keys.forEach(function(key) {
+      var key = localStorage.key(i);
       if ($(`[name="${key}"]`).prop("checked")) {
         console.log(key);
         localStorage.removeItem(`${key}`);
       }
-    });
+    };
   });
 }
 
@@ -59,16 +49,14 @@ function save_task() {
   }
 };
 
+// taskを表示させる
 function show_tasks() {
-  var keys = [];
   for (var i = 0; i < localStorage.length; ++i) {
-    keys.push(localStorage.key(i));  // 登録されているキーをすべて取得
-  }
-
-  keys.forEach(function(key) {
+    var key = localStorage.key(i);
     var task = escape_html(localStorage.getItem(key))  /// htmlタグがあったらescapeさせる
+
     $("#tasks").append(function() {
       return `<input type="checkbox" name="${key}"> ` + key + "  " + task + "</br>"
     });
-  });
+  };
 };
