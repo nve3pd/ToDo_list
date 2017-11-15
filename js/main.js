@@ -8,13 +8,13 @@ function loaded() {
 
   // checkboxにcheckが入っていたらtaskを削除する
   $("input[name='remove']").click(function() {
-    for (var i = 0; i < localStorage.length; ++i) {
-      var key = localStorage.key(i);
-      if ($(`[name="${key}"]`).prop("checked")) {
-        console.log(key);
-        localStorage.removeItem(`${key}`);
-      }
-    };
+    var remove_tasks = $('input[name="task"]:checked').map(function(){
+      return $(this).val();
+    }).get();
+
+    remove_tasks.forEach(function(key){
+      localStorage.removeItem(`${key}`);
+    });
   });
 }
 
@@ -66,7 +66,7 @@ function show_tasks() {
     var task = escape_html(localStorage.getItem(key))  /// htmlタグがあったらescapeさせる
 
     $("#tasks").append(function() {
-      return `<input type="checkbox" name="${key}"> ` + key + "  " + task + "</br>"
+      return `<input type="checkbox" name="task" value="${key}"> ` + key + "  " + task + "</br>";
     });
   };
 };
