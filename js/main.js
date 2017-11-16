@@ -32,10 +32,11 @@ function escape_html(string) {
 }
 
 function check_text(text) {
-  if (text.length === 0 && 20 < text.length) {
+  if (text.length === 0 || 20 < text.length) {
+    alert("文字列は0〜20文字以内にしてください");
     return false;
   }
-
+  alert(text.length);
   // すでに同じtaskが登録されていないかをcheck
   for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
@@ -51,7 +52,7 @@ function check_text(text) {
 
 // taskを保存する
 function save_task() {
-  var task = document.getElementById("todo").value;  
+  var task = document.getElementById("todo").value.trim();  // trimで左右の空白をなくす
   var date = new Date();
 
   if (check_text(task)) {
