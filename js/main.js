@@ -36,7 +36,7 @@ function check_text(text) {
     alert("文字列は0〜20文字以内にしてください");
     return false;
   }
-  alert(text.length);
+
   // すでに同じtaskが登録されていないかをcheck
   for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
@@ -50,10 +50,19 @@ function check_text(text) {
     return true;
 }
 
+// 日付情報をいい感じにformatして返す
+function date_format() {
+  var res = "";
+  var date = new Date();
+
+  res += date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay() + "_" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  return res;
+}
+
 // taskを保存する
 function save_task() {
   var task = document.getElementById("todo").value.trim();  // trimで左右の空白をなくす
-  var date = new Date();
+  var date = date_format();
 
   if (check_text(task)) {
     localStorage.setItem(date, task);  // localstorageに追加
@@ -67,7 +76,10 @@ function show_tasks() {
     var task = escape_html(localStorage.getItem(key))  /// htmlタグがあったらescapeさせる
 
     $("#tasks").append(function() {
-      return `<input type="checkbox" name="task" value="${key}"> ` + key + "  " + task + "</br>";
+      var res = "";
+      res += `<input type="checkbox" name="task" value="${key}"> ` + task;  // タスクの書き込み
+      res += "    <font color='#8b8c8e'>" + key + "に登録されました.</font><br>";  // 時間の書き込み
+      return res;
     });
   };
 };
